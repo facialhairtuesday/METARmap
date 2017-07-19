@@ -2,9 +2,11 @@
 ## By FHT ##
 
 METARmap uses an internet-connected Raspberry Pi to pull ADDS XML feed, and drive NeoPixel LEDs to indicate flight category at airports.
+
 Inspired by post by /u/Grimace06
 
 **Requires rpi_ws281x from JGarff**
+
 Follow instructions here [here](https://learn.adafruit.com/neopixels-on-raspberry-pi/software) to install on RPi
 
 ## To customize code for your chart: ##
