@@ -5,9 +5,7 @@ METARmap uses an internet-connected Raspberry Pi to pull ADDS XML feed, and driv
 
 Inspired by post by /u/Grimace06
 
-**Requires rpi_ws281x from JGarff**
-
-Follow instructions [here](https://learn.adafruit.com/neopixels-on-raspberry-pi/software) to install on RPi
+**Requires rpi_ws281x from JGarff**.  Follow instructions [here](https://learn.adafruit.com/neopixels-on-raspberry-pi/software) to install on RPi
 
 ## To customize code for your chart: ##
 * Under "Airport List", modify the list to include the airports you will be using in your METARmap.  Use full ICAO name (K---, etc.) you would use if looking up METARs online.  Each airport name should be in quotes ("X") and separated by commas. ** Airports in the list must be in the order that you will wire the NeoPixels**
