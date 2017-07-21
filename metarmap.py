@@ -84,17 +84,3 @@ if __name__ == '__main__':
                                 strip.setPixelColor(i,Color(127,0,127)) # Purple, 1/2 brightness
                                 strip.show()
                 time.sleep(600)
-
-                """ Troubleshooting --> Uncomment to print info """
-                """
-                print('VFR = GREEN, MVFR = BLUE, IFR = RED, LIFR = PURPLE')
-                print(weather)
-                print(airports)
-                time.sleep(5)
-
-                for i in range(0, strip.numPixels(),1):
-                        strip.setPixelColor(i,Color(0,0,0))
-                        strip.show()
-
-                time.sleep(2)
-                """
