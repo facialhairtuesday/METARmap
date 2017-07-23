@@ -7,6 +7,7 @@
 import xml.etree.ElementTree as ET
 import urllib
 import time
+import datetime
 from neopixel import *
 
 """ Airport List --> PUT IN SAME ORDER AS LEDs ARE WIRED ON MAP """
@@ -32,6 +33,17 @@ if __name__ == '__main__':
         strip.begin()
 
         while True:
+        
+                """ Get current time to set LED Brightness Level """
+                # 1/2 Brightness from 0700 to 2159
+                # 1/4 Brightness from 2200 to 0659
+           
+                now = datetime.datetime.now()
+                
+                if now.hour >= 7 and now.hour < 22:
+					LED_Level = 127
+				else:
+					LED_Level = 63
 
                 """ Url Setup + Add airport identifiers from airport list + remove last character (,) """
                 url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=$
@@ -72,15 +84,15 @@ if __name__ == '__main__':
                 for i in range(0, strip.numPixels(),1):
                         cat = weather[airports[i]]
                         if cat == "VFR":
-                                strip.setPixelColor(i, Color(0,127,0)) # Green, 1/2 brightness
+                                strip.setPixelColor(i, Color(0,LED_Level,0)) # Green, 1/2 brightness
                                 strip.show()
                         elif cat == "MVFR":
-                                strip.setPixelColor(i, Color(0,0,127)) # Blue, 1/2 brightness
+                                strip.setPixelColor(i, Color(0,0,LED_Level)) # Blue, 1/2 brightness
                                 strip.show()
                         elif cat == "IFR":
-                                strip.setPixelColor(i, Color(127,0,0)) # Red, 1/2 brightness
+                                strip.setPixelColor(i, Color(LED_Level,0,0)) # Red, 1/2 brightness
                                 strip.show()
                         elif cat == "LIFR":
-                                strip.setPixelColor(i,Color(127,0,127)) # Purple, 1/2 brightness
+                                strip.setPixelColor(i,Color(LED_Level,0,LED_Level)) # Purple, 1/2 brightness
                                 strip.show()
                 time.sleep(600)
