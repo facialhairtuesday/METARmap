@@ -7,11 +7,14 @@
 # Airport List --> PUT IN SAME ORDER AS LEDs ARE WIRED ON MAP """
 airports = ["KBOS", "KBED", "KLWM", "KPSM", "KPYM"]
 
-# Brightness Setting Code -->
+# Brightness Setting Code
 morning_bright = 7	# Time in morning (hr) for LEDs to go to bright setting, default 0700
 night_dim = 22		# Time in evening (hr) for LEDs to go to dim setting, default 2200
 bright_fraction = 1/2	# Fraction of full brightness for LEDs during bright setting, default 1/2
 dim_fraction = 1/4	# Fraction of full brightness for LEDs during dim setting, default 1/4
+
+# Update Frequency
+time_to_pause = 600 	# Time (in seconds) to wait before checking for updated METARs, default 600
 
 """ -------------------------------- """
 
@@ -106,4 +109,8 @@ if __name__ == '__main__':
                         elif cat == "LIFR":
                                 strip.setPixelColor(i,Color(LED_Level,0,LED_Level)) # Purple, 1/2 brightness
                                 strip.show()
-                time.sleep(600)
+                
+		if time_to_pause < 600:
+			time.sleep(600)
+		else:
+			time.sleep(time_to_pause)
