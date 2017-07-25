@@ -10,8 +10,6 @@ airports = ["KBOS", "KBED", "KLWM", "KPSM", "KPYM"]
 # Brightness Setting Code
 morning_bright = 7	# Time in morning (hr) for LEDs to go to bright setting, default 0700
 night_dim = 22		# Time in evening (hr) for LEDs to go to dim setting, default 2200
-bright_fraction = 1/2	# Fraction of full brightness for LEDs during bright setting, default 1/2
-dim_fraction = 1/4	# Fraction of full brightness for LEDs during dim setting, default 1/4
 
 # Update Frequency
 time_to_pause = 600 	# Time (in seconds) to wait before checking for updated METARs, default 600
@@ -49,15 +47,12 @@ if __name__ == '__main__':
         while True:
         
                 """ Get current time to set LED Brightness Level """
-                # 1/2 Brightness from 0700 to 2159
-                # 1/4 Brightness from 2200 to 0659
-           
                 now = datetime.datetime.now()
                 
                 if now.hour >= morning_bright and now.hour < night_dim:
-					LED_Level = round(LED_BRIGHTNESS * bright_fraction)
+					LED_Level = 127
 				else:
-					LED_Level = round(LED_BRIGHTNESS * dim_fraction)
+					LED_Level = 15
 
                 """ Url Setup + Add airport identifiers from airport list + remove last character (,) """
                 url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=$
