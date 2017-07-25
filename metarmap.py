@@ -107,5 +107,5 @@ if __name__ == '__main__':
                 
 		if time_to_pause < 600:
 			time.sleep(600)
-		else:
+		elif time_to_pause >= 600:
 			time.sleep(time_to_pause)
