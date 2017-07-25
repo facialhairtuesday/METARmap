@@ -50,9 +50,9 @@ if __name__ == '__main__':
                 now = datetime.datetime.now()
                 
                 if now.hour >= morning_bright and now.hour < night_dim:
-					LED_Level = 127
-				else:
-					LED_Level = 15
+			LED_Level = 127
+		else:
+			LED_Level = 15
 
                 """ Url Setup + Add airport identifiers from airport list + remove last character (,) """
                 url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=$
@@ -107,5 +107,5 @@ if __name__ == '__main__':
                 
 		if time_to_pause < 600:
 			time.sleep(600)
-		elif time_to_pause >= 600:
+		else:
 			time.sleep(time_to_pause)
