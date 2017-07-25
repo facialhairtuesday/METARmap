@@ -55,7 +55,8 @@ if __name__ == '__main__':
 			LED_Level = 15
 
                 """ Url Setup + Add airport identifiers from airport list + remove last character (,) """
-                url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=$
+                url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString='
+
                 for airport in airports:
                         url += (airport + ',')
 
