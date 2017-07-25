@@ -2,6 +2,19 @@
  #Author: FHT
  #2017-06-11
 
+""" CODE TO CUSTOMIZE YOUR METARMAP """
+
+# Airport List --> PUT IN SAME ORDER AS LEDs ARE WIRED ON MAP """
+airports = ["KBOS", "KBED", "KLWM", "KPSM", "KPYM"]
+
+# Brightness Setting Code -->
+morning_bright = 7	# Time in morning (hr) for LEDs to go to bright setting, default 0700
+night_dim = 22		# Time in evening (hr) for LEDs to go to dim setting, default 2200
+bright_fraction = 1/2	# Fraction of full brightness for LEDs during bright setting, default 1/2
+dim_fraction = 1/4	# Fraction of full brightness for LEDs during dim setting, default 1/4
+
+""" -------------------------------- """
+
 
 """ Import Stuff """
 import xml.etree.ElementTree as ET
@@ -10,18 +23,16 @@ import time
 import datetime
 from neopixel import *
 
-""" Airport List --> PUT IN SAME ORDER AS LEDs ARE WIRED ON MAP """
-airports = ["KBOS", "KBED", "KLWM", "KPSM", "KPYM"]
 
 
 """ LED Configuration """
-LED_COUNT = 5           # Number of LEDs --> Should equal number of airports in list
-LED_PIN = 18            # GPIO pin connected to neopixels (18 uses PWM)
-LED_FREQ_HZ = 800000    # LED signal frequency in Hz (usually 800 kHz)
-LED_DMA = 5             # DMA channel to use for generating signal
-LED_BRIGHTNESS = 255    # Set to 0 for darkest and 255 for brightest
-LED_INVERT = False      # Set to true to invert signal when using NPN transistor level shift
-LED_CHANNEL = 0         # Set to '1' for GPIOs 13, 19, 41, 45, or 53
+LED_COUNT = len(airports)       # Number of LEDs --> Should equal number of airports in list
+LED_PIN = 18            	# GPIO pin connected to neopixels (18 uses PWM)
+LED_FREQ_HZ = 800000    	# LED signal frequency in Hz (usually 800 kHz)
+LED_DMA = 5             	# DMA channel to use for generating signal
+LED_BRIGHTNESS = 255    	# Set to 0 for darkest and 255 for brightest
+LED_INVERT = False      	# Set to true to invert signal when using NPN transistor level shift
+LED_CHANNEL = 0         	# Set to '1' for GPIOs 13, 19, 41, 45, or 53
 LED_STRIP = ws.WS2811_STRIP_GRB         #Strip type and color ordering, Neopixel breadboards actually RGB, didn't want to mess with$
 
 if __name__ == '__main__':
@@ -40,10 +51,10 @@ if __name__ == '__main__':
            
                 now = datetime.datetime.now()
                 
-                if now.hour >= 7 and now.hour < 22:
-					LED_Level = 127
+                if now.hour >= morning_bright and now.hour < night_dim:
+					LED_Level = round(LED_BRIGHTNESS * bright_fraction)
 				else:
-					LED_Level = 63
+					LED_Level = round(LED_BRIGHTNESS * dim_fraction)
 
                 """ Url Setup + Add airport identifiers from airport list + remove last character (,) """
                 url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=$
