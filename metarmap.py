@@ -11,6 +11,7 @@ airports = ["KBOS", "KSAW","KHYR","KPIA","KDEN"]
 # Brightnesss Time Settings
 morn = 7 # Local time in morning (hour only) for LEDs to go to bright setting, default 0700
 nite = 22 # Local time in evening (hour only) for LEDs to go to dim setting, default 2200
+timezone = -4 #Hours ahead or behind UTC in local time.  Use positive # if ahead of UTC.  If using UTC, set timezone = 0
 
 """ Import Stuff """
 import xml.etree.ElementTree as ET
@@ -43,8 +44,9 @@ if __name__ == '__main__':
 		
 		""" Get current time to set LED brightness """
 		now = datetime.datetime.now()
+		hour = now.hour + timezone
 		
-		if now.hour >= morn and now.hour < nite:
+		if hour >= morn and hour < nite:
 			LED_Level = 127
 		else:
 			LED_Level = 15
