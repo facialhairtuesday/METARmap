@@ -8,6 +8,10 @@
 #airports = ["KBOS", "KBED", "KLWM", "KPSM", "KPYM"]
 airports = ["KBOS", "KSAW","KHYR","KPIA","KDEN"]
 
+# Brightnesss Time Settings
+morn = 7 # Local time in morning (hour only) for LEDs to go to bright setting, default 0700
+nite = 22 # Local time in evening (hour only) for LEDs to go to dim setting, default 2200
+
 """ Import Stuff """
 import xml.etree.ElementTree as ET
 import urllib
@@ -36,6 +40,14 @@ if __name__ == '__main__':
 	strip.begin()
 
 	while True:
+		
+		""" Get current time to set LED brightness """
+		now = datetime.datetime.now()
+		
+		if now.hour >= morn and now.hour < nite:
+			LED_Level = 127
+		else:
+			LED_Level = 15
 
 		""" Url Setup + Add airport identifiers from airport list + remove last character (,) """
 		url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString='
@@ -76,16 +88,16 @@ if __name__ == '__main__':
 		for i in range(0, strip.numPixels(),1):
 			cat = weather[airports[i]]
 			if cat == "VFR":
-				strip.setPixelColor(i, Color(0,127,0)) # Green
+				strip.setPixelColor(i, Color(0,LED_Level,0)) # Green
 				strip.show()
 			elif cat == "MVFR":
-				strip.setPixelColor(i, Color(0,0,127)) # Blue
+				strip.setPixelColor(i, Color(0,0,LED_Level)) # Blue
 				strip.show()
 			elif cat == "IFR":
-				strip.setPixelColor(i, Color(127,0,0)) # Red
+				strip.setPixelColor(i, Color(LED_Level,0,0)) # Red
 				strip.show()
 			elif cat == "LIFR":
-				strip.setPixelColor(i,Color(127,0,127)) # Purple
+				strip.setPixelColor(i,Color(LED_Level,0,LED_Level)) # Purple
 				strip.show()
 
 		time.sleep(5)
