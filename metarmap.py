@@ -43,8 +43,8 @@ if __name__ == '__main__':
 	while True:
 		
 		""" Get current time to set LED brightness """
-		now = datetime.datetime.now()
-		hour = now.hour + timezone
+		#now = datetime.datetime.now()
+		hour = datetime.datetime.now().hour + timezone
 		
 		if hour >= morn and hour < nite:
 			LED_Level = 127
