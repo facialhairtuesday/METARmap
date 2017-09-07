@@ -59,8 +59,12 @@ if __name__ == '__main__':
 		url = url[:-1]
 
 		""" Get XML METAR and parse """
-		xml_metar = ET.parse(urllib.urlopen(url))
-		metar = xml_metar.getroot()
+		try:
+			xml_metar = ET.parse(urllib.urlopen(url))
+			metar = xml_metar.getroot()
+		except Exception:
+			time.sleep(60)
+			continue
 
 		""" Add Airport & Flight Category Info to Lists """
 		stationList = []
