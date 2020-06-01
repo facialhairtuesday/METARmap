@@ -45,10 +45,10 @@ if __name__ == '__main__':
         strip.begin()
 
         while True:
-        
+
                 """ Get current time to set LED Brightness Level """
                 now = datetime.datetime.now()
-                
+
                 if now.hour >= morning_bright and now.hour < night_dim:
 			LED_Level = 127
 		else:
@@ -105,7 +105,7 @@ if __name__ == '__main__':
                         elif cat == "LIFR":
                                 strip.setPixelColor(i,Color(LED_Level,0,LED_Level)) # Purple, 1/2 brightness
                                 strip.show()
-                
+
 		if time_to_pause < 600:
 			time.sleep(600)
 		else:
