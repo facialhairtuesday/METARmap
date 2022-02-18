@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 import urllib
 import time
 import datetime
-import neopixel as NP
+import neopixel
 import board
 
 """Import Airport List"""
@@ -20,7 +20,7 @@ airports = [x.strip() for x in airports]
 LED_COUNT = len(airports) # Number of LEDS --> Equals # of airports in list
 LED_PIN = board.D18 # GPIO pin connected to neopixels (18 uses PWM)
 LED_BRIGHTNESS = 255 # Set to 0 for dimmest, 255 for brightest
-ORDER = NP.GRB
+ORDER = neopixel.GRB
 
 pixels = neopixel.NeoPixel(
     pixel_pin, num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER
