@@ -20,7 +20,10 @@ import time
 import datetime
 from neopixel import *
 
-
+""" Airport List Generation """
+with open("home/pi/METARmap/airports") as f:
+	airports = f.readlines()
+airports = [x.strip() for x in airports]
 
 """ LED Configuration """
 LED_COUNT = len(airports)		# Number of LEDs --> Should equal number of airports in list
@@ -35,7 +38,7 @@ LED_CHANNEL = 0				# Set to '1' for GPIOs 13, 19, 41, 45, or 53
 if __name__ == '__main__':
 
 	""" Create NeoPixel object with appropriate configuration """
-	strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
+	strip = neopixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 
 	""" Initialize library (must be called once before other functions) """
 	strip.begin()
