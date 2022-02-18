@@ -25,6 +25,8 @@ with open("home/pi/METARmap/airports") as f:
 	airports = f.readlines()
 airports = [x.strip() for x in airports]
 
+print(airports)
+
 """ LED Configuration """
 LED_COUNT = len(airports)		# Number of LEDs --> Should equal number of airports in list
 LED_PIN = 18				# GPIO pin connected to neopixels (18 uses PWM)
