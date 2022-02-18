@@ -23,7 +23,7 @@ LED_BRIGHTNESS = 255 # Set to 0 for dimmest, 255 for brightest
 ORDER = neopixel.GRB
 
 pixels = neopixel.NeoPixel(
-    pixel_pin, num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER
+    LED_PIN, LED_COUNT, brightness=0.2, auto_write=False, pixel_order=ORDER
 )
 
 
