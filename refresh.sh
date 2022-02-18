@@ -1,1 +1,1 @@
-/usr/bin/sudo /usr/bin/python3 /home/pi/metarmap/metarmap.py
+/usr/bin/sudo /usr/bin/python3 /home/pi/metarmap/test.py
