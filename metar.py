@@ -12,7 +12,7 @@ import board
 
 """Import Airport List"""
 
-with open("../METARmap/airports") as f:
+with open("../METARmap/Airports") as f:
     airports = f.readlines()
 airports = [x.strip() for x in airports]
 
