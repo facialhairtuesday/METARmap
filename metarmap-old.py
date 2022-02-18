@@ -18,10 +18,10 @@ import xml.etree.ElementTree as ET
 import urllib
 import time
 import datetime
-from neopixel import *
+import neopixel
 
 """ Airport List Generation """
-with open("home/pi/METARmap/airports") as f:
+with open("/home/pi/METARmap/airports") as f:
 	airports = f.readlines()
 airports = [x.strip() for x in airports]
 
