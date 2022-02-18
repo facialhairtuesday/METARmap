@@ -30,7 +30,7 @@ LED_DMA = 5				# DMA channel to use for generating signal
 LED_BRIGHTNESS = 255			# Set to 0 for darkest and 255 for brightest
 LED_INVERT = False			# Set to true to invert signal when using NPN transistor level shift
 LED_CHANNEL = 0				# Set to '1' for GPIOs 13, 19, 41, 45, or 53
-LED_STRIP = ws.WS2811_STRIP_GRB		#Strip type and color ordering, Neopixel breadboards actually RGB, didn't want to mess with code
+#LED_STRIP = ws.WS2811_STRIP_GRB		#Strip type and color ordering, Neopixel breadboards actually RGB, didn't want to mess with code
 
 if __name__ == '__main__':
 
@@ -41,11 +41,11 @@ if __name__ == '__main__':
 	strip.begin()
 
 	while True:
-		
+
 		""" Get current time to set LED brightness """
 		#now = datetime.datetime.now()
 		hour = datetime.datetime.now().hour + timezone
-		
+
 		if hour >= morn and hour < nite:
 			LED_Level = 127
 		else:
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 		url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString='
 		for airport in airports:
 			url += (airport + ',')
-		
+
 		url = url[:-1]
 
 		""" Get XML METAR and parse """
@@ -74,7 +74,7 @@ if __name__ == '__main__':
 		flightCat = []
 		for category in metar.iter('flight_category'):
 			flightCat.append(category.text)
-		
+
 		""" Generate weather dictionary with assembled airport and category info """
 		weather = {}
 		for station in range(len(stationList)):
@@ -109,7 +109,7 @@ if __name__ == '__main__':
 		time.sleep(5)
 
 		""" Troubleshooting --> Uncomment to print info """
-		
+
 		"""#print('VFR = GREEN, MVFR = BLUE, IFR = RED, LIFR = PURPLE')
 		#print(weather)
 		#print(airports)
