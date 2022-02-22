@@ -58,7 +58,7 @@ if astral is not None:
             sun = astral.sun.sun(city.observer, date = datetime.datetime.now().date(), tzinfo=city.timezone)
             timeBright = sun['sunrise'].time()
             timeDim = sun['sunset'].time()
-    print("Current time is: " + datetime.datetime.now())
+    print("Current time is: " + str(datetime.datetime.now()))
     print("Sunrise:" + timeBright.strftime('%H:%M') + " Sunset:" + timeDim.strftime('%H:%M'))
 
 """LED Configuration"""
