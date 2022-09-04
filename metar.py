@@ -101,8 +101,10 @@ for airport in airports:
     organizedWeather[airport] = "NONE"
 
 for key in organizedWeather:
-    organizedWeather[key] = conditionDict[key]
-
+    try:
+        organizedWeather[key] = conditionDict[key]
+    except Exception as e:
+        organizedWeather[key] = "NONE"
 """ Set LED Colors """
 i=0
 for key in organizedWeather:
