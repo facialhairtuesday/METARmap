@@ -12,7 +12,7 @@ import board
 try:
     import astral
 except ImportError:
-        astral = None
+    astral = None
 
 """ Import Airport List """
 with open("/home/pi/METARmap/Airports") as f:
@@ -77,48 +77,47 @@ for airport in airports:
 url = url[:-1]
 
 try:
-        with urllib.request.urlopen(url) as response:
-                xml_metar = response.read()
-        metar = ET.fromstring(xml_metar)
+    with urllib.request.urlopen(url) as response:
+            xml_metar = response.read()
+    metar = ET.fromstring(xml_metar)
 except Exceptions:
-        time.sleep(60)
-        pass
+    time.sleep(60)
+    pass
 
 conditionDict = {"NULL": {"flightCategory" : ""}}
 conditionDict.pop("NULL")
 
 stationList = []
 for metarInfo in metar.iter('METAR'):
-        stationID = metarInfo.find('station_id').text
-        if metarInfo.find('flight_category') is None:
-                continue
-        flightCategory = metarInfo.find('flight_category').text
-        conditionDict[stationID] = flightCategory
+    stationID = metarInfo.find('station_id').text
+    if metarInfo.find('flight_category') is None:
+            continue
+    flightCategory = metarInfo.find('flight_category').text
+    conditionDict[stationID] = flightCategory
 
 """ Organize METAR Info """
 organizedWeather = {}
 for airport in airports:
-        organizedWeather[airport] = "NONE"
+    organizedWeather[airport] = "NONE"
 
 for key in organizedWeather:
-        organizedWeather[key] = conditionDict[key]
+    organizedWeather[key] = conditionDict[key]
 
 """ Set LED Colors """
 i=0
 for key in organizedWeather:
-        if organizedWeather[key] == "VFR":
-                pixels[i] = COLOR_VFR
-        elif organizedWeather[key] == "MVFR":
-                pixels[i] = COLOR_MVFR
-        elif organizedWeather[key] == "IFR":
-                pixels[i] = COLOR_IFR
-        elif organizedWeather[key] == "LIFR":
-                pixels[i] = COLOR_LIFR
-        else:
-                pixels[i] = COLOR_CLEAR
-        i+=1
+    if organizedWeather[key] == "VFR":
+        pixels[i] = COLOR_VFR
+    elif organizedWeather[key] == "MVFR":
+        pixels[i] = COLOR_MVFR
+    elif organizedWeather[key] == "IFR":
+        pixels[i] = COLOR_IFR
+    elif organizedWeather[key] == "LIFR":
+        pixels[i] = COLOR_LIFR
+    else:
+        pixels[i] = COLOR_CLEAR
+    i+=1
 
 for key in organizedWeather:
-        print("At " + key + " the current weather is "
-              + organizedWeather[key])
+    print("At " + key + " the current weather is " + organizedWeather[key])
 pixels.show()
