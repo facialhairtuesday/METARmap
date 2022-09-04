@@ -31,8 +31,7 @@ brightLED = 0.5 # Brightness ratio for bright LEDs (0 - 1)
 dimmingRatio = 0.2 # Brightness ratio for dim LEDs (0 - 1)
 cityNearest = "Boston" # Set to city location, refer to https://astral.readthedocs.io/en/latest/#cities)
 timeBright = datetime.time(7,0) # Set default bright time
-#timeDim = datetime.time(19,0) # Set default dim time
-timeDim = datetime.time(11,0) # Set default dim time
+timeDim = datetime.time(19,0) # Set default dim time
 
 # Determine sunrise/sunset times for bright/dim adjustment)
 if astral is not None:
