@@ -62,7 +62,14 @@ if astral is not None:
     print("Sunrise:" + timeBright.strftime('%H:%M') + " Sunset:" + timeDim.strftime('%H:%M'))
 
 """LED Configuration"""
-bright = timeBright < datetime.datetime.now().time() < timeDim
+timeNow = datetime.datetime.now().time()
+if timeBright < timeNow and timeNow < timeDim:
+    bright = True
+    print("It's daytime! The lights are bright!")
+else:
+    bright = False
+    print("It's nighttime! The lights are dim!")
+
 LED_COUNT = len(airports) # Number of LEDS --> Equals # of airports in list
 LED_PIN = board.D18 # GPIO pin connected to neopixels (18 uses PWM)
 ORDER = neopixel.GRB
