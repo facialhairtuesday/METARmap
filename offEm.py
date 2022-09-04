@@ -21,11 +21,6 @@ ORDER = neopixel.GRB
 pixels = neopixel.NeoPixel(
     pixel_pin, num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER
 )
-
-while True:
-    # Comment this line out if you have RGBW/GRBW NeoPixels
-    pixels.fill((0, 0, 0))
-    # Uncomment this line if you have RGBW/GRBW NeoPixels
-    # pixels.fill((255, 0, 0, 0))
-    pixels.show()
-    time.sleep(1)
+# Comment this line out if you have RGBW/GRBW NeoPixels
+pixels.fill((0, 0, 0))
+pixels.show()
