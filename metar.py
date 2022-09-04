@@ -24,7 +24,7 @@ COLOR_VFR = (0,255,0) # Green
 COLOR_MVFR = (0, 0, 255) # Blue
 COLOR_IFR = (255,0,0) # Red
 COLOR_LIFR = (125,0,125) # Magenta
-COLOR_CLEAR = (255,255,255) # Clear
+COLOR_CLEAR = (0,0,0) # Clear
 
 """ Setup Dimming Based on Time """
 brightLED = 0.5 # Brightness ratio for bright LEDs (0 - 1)
