@@ -9,6 +9,8 @@ import time
 import datetime
 import neopixel
 import board
+import requests
+import json
 try:
     import astral
 except ImportError:
@@ -76,6 +78,33 @@ ORDER = neopixel.GRB
 pixels = neopixel.NeoPixel(
     LED_PIN, LED_COUNT, brightness = dimmingRatio if (bright == False) else brightLED,
     auto_write=False, pixel_order=ORDER)
+
+""" Determine Scheduled/Actual Flight """
+#endpoint = "https://aeroapi.flightaware.com/aeroapi/flights/N1446C"
+#api_key = "9zRxOB4Ue5iXo6lm4Gf4vcBrjHCZI9ro"
+#jsonData = requests.get(endpoint, headers = {"x-apikey":api_key}).json()
+jsonData = json.load(open('testJSON.json'))
+flightData = jsonData['flights'][0]
+
+actual_off = flightData['actual_off']
+estimated_off = flightData['estimated_off']
+actual_on = flightData['actual_on']
+estimated_on = flightData['estimated_on']
+scheduled_off = flightData['scheduled_off']
+scheduled_on = flightData['schedule_on']
+origin = flightData['origin']['code']
+destination = flightData['destination']['code']
+utcNow = datetime.utcnow().replace(second=0, microsecond=0)
+
+times = [actual_off, actual_on, estimated_off, estimated_on, scheduled_off, scheduled_on]
+
+for item in times:
+    try:
+        item = datetime.strptime(item.replace('T',' ')[0:-1], '%Y-%m-%d %H:%M:%S')
+    except:
+        continue
+
+
 
 """ Get METAR Info """
 url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString='
