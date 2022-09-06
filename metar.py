@@ -154,20 +154,17 @@ for key in organizedWeather:
 
 """ Set LED Colors """
 i=0
+
 for key in organizedWeather:
     print(i)
     if organizedWeather[key] == "VFR":
         pixels[i] = COLOR_VFR
-        continue
     elif organizedWeather[key] == "MVFR":
         pixels[i] = COLOR_MVFR
-        continue
     elif organizedWeather[key] == "IFR":
         pixels[i] = COLOR_IFR
-        continue
     elif organizedWeather[key] == "LIFR":
         pixels[i] = COLOR_LIFR
-        continue
     else:
         pixels[i] = COLOR_CLEAR
         continue
