@@ -172,6 +172,7 @@ for key in organizedWeather:
         pixels[i] = COLOR_CLEAR
         continue
     i+=1
+    print(i)
 
 print(pixels)
 
