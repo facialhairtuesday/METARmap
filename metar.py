@@ -83,7 +83,7 @@ pixels = neopixel.NeoPixel(
 """ Determine Scheduled/Actual Flight """
 #endpoint = "https://aeroapi.flightaware.com/aeroapi/flights/N1446C"
 #api_key = "9zRxOB4Ue5iXo6lm4Gf4vcBrjHCZI9ro"
-jsonData = requests.get(endpoint, headers = {"x-apikey":api_key}).json()
+#jsonData = requests.get(endpoint, headers = {"x-apikey":api_key}).json()
 jsonData = json.load(open("/home/pi/METARmap/testJSON.json"))
 flightData = jsonData['flights'][0]
 
