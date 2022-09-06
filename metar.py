@@ -147,6 +147,11 @@ for key in organizedWeather:
     except Exception as e:
         organizedWeather[key] = "NONE"
 
+if departTime <= utcNow and utcNow <= arriveTime:
+    print("in flight")
+else:
+    print("not flying")
+
 """ Set LED Colors """
 i=0
 for key in organizedWeather:
@@ -166,11 +171,6 @@ for key in organizedWeather:
         pixels[i] = COLOR_CLEAR
         continue
     i+=1
-
-if departTime <= utcNow and utcNow <= arriveTime:
-    print("in flight")
-else:
-    print("not flying")
 
 for key in organizedWeather:
     print("At " + key + " the current weather is " + organizedWeather[key])
