@@ -108,11 +108,18 @@ for key in times:
     except:
         continue
 
-departTime = max([val for key, val in times.items() if "off" in key and val is not None])
-arriveTime = max([val for key, val in times.items() if "on" in key and val is not None])
+try:
+        departTime = max([val for key, val in times.items() if "off" in key and val is not None])
+except:
+        departTime = None
+
+try:
+        arriveTime = max([val for key, val in times.items() if "on" in key and val is not None])
+except:
+        arriveTime = None
 
 """ Get METAR Info """
-url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString='
+url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString>
 for airport in airports:
     url += (airport + ",")
 url = url[:-1]
@@ -147,28 +154,28 @@ for key in organizedWeather:
     except Exception as e:
         organizedWeather[key] = "NONE"
 
-if departTime <= utcNow and utcNow <= arriveTime:
-    print("in flight")
-else:
-    print("not flying")
+if departTime != None and arriveTime != None:
+        if departTime <= utcNow and utcNow <= arriveTime:
+                print("in flight")
+        else:
+                 print("not flying")
 
 """ Set LED Colors """
 i=0
 
 for key in organizedWeather:
-    print(i)
-    if organizedWeather[key] == "VFR":
-        pixels[i] = COLOR_VFR
-    elif organizedWeather[key] == "MVFR":
-        pixels[i] = COLOR_MVFR
-    elif organizedWeather[key] == "IFR":
-        pixels[i] = COLOR_IFR
-    elif organizedWeather[key] == "LIFR":
-        pixels[i] = COLOR_LIFR
-    else:
-        pixels[i] = COLOR_CLEAR
-        continue
-    i+=1
+#       print(key," : ",organizedWeather[key])
+        if organizedWeather[key] == "VFR":
+                pixels[i] = COLOR_VFR
+        elif organizedWeather[key] == "MVFR":
+                pixels[i] = COLOR_MVFR
+        elif organizedWeather[key] == "IFR":
+                pixels[i] = COLOR_IFR
+        elif organizedWeather[key] == "LIFR":
+                pixels[i] = COLOR_LIFR
+        else:
+                pixels[i] = COLOR_CLEAR
+        i+=1
 
 for key in organizedWeather:
     print("At " + key + " the current weather is " + organizedWeather[key])
