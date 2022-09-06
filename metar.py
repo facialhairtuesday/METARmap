@@ -83,33 +83,33 @@ pixels = neopixel.NeoPixel(
 """ Determine Scheduled/Actual Flight """
 #endpoint = "https://aeroapi.flightaware.com/aeroapi/flights/N1446C"
 #api_key = "9zRxOB4Ue5iXo6lm4Gf4vcBrjHCZI9ro"
-#jsonData = requests.get(endpoint, headers = {"x-apikey":api_key}).json()
-#jsonData = json.load(open("/home/pi/METARmap/testJSON.json"))
-#flightData = jsonData['flights'][0]
+jsonData = requests.get(endpoint, headers = {"x-apikey":api_key}).json()
+jsonData = json.load(open("/home/pi/METARmap/testJSON.json"))
+flightData = jsonData['flights'][0]
 
-#actual_off = flightData['actual_off']
-#estimated_off = flightData['estimated_off']
-#actual_on = flightData['actual_on']
-#estimated_on = flightData['estimated_on']
-#scheduled_off = flightData['scheduled_off']
-#scheduled_on = flightData['scheduled_on']
-#origin = flightData['origin']['code']
-#destination = flightData['destination']['code']
-#utcNow = datetime.datetime.utcnow().replace(second=0, microsecond=0)
+actual_off = flightData['actual_off']
+estimated_off = flightData['estimated_off']
+actual_on = flightData['actual_on']
+estimated_on = flightData['estimated_on']
+scheduled_off = flightData['scheduled_off']
+scheduled_on = flightData['scheduled_on']
+origin = flightData['origin']['code']
+destination = flightData['destination']['code']
+utcNow = datetime.datetime.utcnow().replace(second=0, microsecond=0)
 
-#times = {"actual_off":actual_off, "actual_on":actual_on,
-#         "estimated_off":estimated_off, "estimated_on":estimated_on,
-#         "scheduled_off":scheduled_off, "scheduled_on":scheduled_on}
+times = {"actual_off":actual_off, "actual_on":actual_on,
+         "estimated_off":estimated_off, "estimated_on":estimated_on,
+         "scheduled_off":scheduled_off, "scheduled_on":scheduled_on}
 
-#for key in times:
-#    try:
-#        tempTime = datetime.datetime.strptime(times[key].replace('T', ' ')[0:-1], '%Y-%m-%d %H:%M:%S')
-#        times[key] = tempTime
-#    except:
-#        continue
+for key in times:
+    try:
+        tempTime = datetime.datetime.strptime(times[key].replace('T', ' ')[0:-1], '%Y-%m-%d %H:%M:%S')
+        times[key] = tempTime
+    except:
+        continue
 
-#departTime = max([val for key, val in times.items() if "off" in key and val is not None])
-#arriveTime = max([val for key, val in times.items() if "on" in key and val is not None])
+departTime = max([val for key, val in times.items() if "off" in key and val is not None])
+arriveTime = max([val for key, val in times.items() if "on" in key and val is not None])
 
 """ Get METAR Info """
 url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString='
@@ -147,10 +147,10 @@ for key in organizedWeather:
     except Exception as e:
         organizedWeather[key] = "NONE"
 
-#if departTime <= utcNow and utcNow <= arriveTime:
-#    print("in flight")
-#else:
-#    print("not flying")
+if departTime <= utcNow and utcNow <= arriveTime:
+    print("in flight")
+else:
+    print("not flying")
 
 """ Set LED Colors """
 i=0
@@ -170,6 +170,6 @@ for key in organizedWeather:
         continue
     i+=1
 
-#for key in organizedWeather:
-#    print("At " + key + " the current weather is " + organizedWeather[key])
+for key in organizedWeather:
+    print("At " + key + " the current weather is " + organizedWeather[key])
 pixels.show()
