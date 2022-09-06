@@ -175,6 +175,6 @@ for key in organizedWeather:
 
 print(pixels)
 
-for key in organizedWeather:
-    print("At " + key + " the current weather is " + organizedWeather[key])
+#for key in organizedWeather:
+#    print("At " + key + " the current weather is " + organizedWeather[key])
 pixels.show()
