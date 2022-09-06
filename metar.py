@@ -119,7 +119,7 @@ except:
         arriveTime = None
 
 """ Get METAR Info """
-url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString>
+url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString='
 for airport in airports:
     url += (airport + ",")
 url = url[:-1]
