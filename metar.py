@@ -27,6 +27,7 @@ COLOR_MVFR = (0, 0, 255) # Blue
 COLOR_IFR = (255,0,0) # Red
 COLOR_LIFR = (125,0,125) # Magenta
 COLOR_CLEAR = (0,0,0) # Clear
+COLOR_ORANGE = (255,165,0) # Orange
 
 """ Setup Dimming Based on Time """
 brightLED = 0.5 # Brightness ratio for bright LEDs (0 - 1)
@@ -83,7 +84,7 @@ pixels = neopixel.NeoPixel(
 #endpoint = "https://aeroapi.flightaware.com/aeroapi/flights/N1446C"
 #api_key = "9zRxOB4Ue5iXo6lm4Gf4vcBrjHCZI9ro"
 #jsonData = requests.get(endpoint, headers = {"x-apikey":api_key}).json()
-jsonData = json.load(open('testJSON.json'))
+jsonData = json.load(open("/home/pi/METARmap/testJSON.json"'"))
 flightData = jsonData['flights'][0]
 
 actual_off = flightData['actual_off']
@@ -91,20 +92,24 @@ estimated_off = flightData['estimated_off']
 actual_on = flightData['actual_on']
 estimated_on = flightData['estimated_on']
 scheduled_off = flightData['scheduled_off']
-scheduled_on = flightData['schedule_on']
+scheduled_on = flightData['scheduled_on']
 origin = flightData['origin']['code']
 destination = flightData['destination']['code']
-utcNow = datetime.utcnow().replace(second=0, microsecond=0)
+utcNow = datetime.datetime.utcnow().replace(second=0, microsecond=0)
 
-times = [actual_off, actual_on, estimated_off, estimated_on, scheduled_off, scheduled_on]
+times = {"actual_off":actual_off, "actual_on":actual_on,
+         "estimated_off":estimated_off, "estimated_on":estimated_on,
+         "scheduled_off":scheduled_off, "scheduled_on":scheduled_on}
 
-for item in times:
+for key in times:
     try:
-        item = datetime.strptime(item.replace('T',' ')[0:-1], '%Y-%m-%d %H:%M:%S')
+        tempTime = datetime.datetime.strptime(times[key].replace('T', ' ')[0:-1], '%Y-%m-%d %H:%M:%S')
+        times[key] = tempTime
     except:
         continue
 
-
+departTime = max([val for key, val in times.items() if "off" in key and val is not None])
+arriveTime = max([val for key, val in times.items() if "on" in key and val is not None])
 
 """ Get METAR Info """
 url = 'https://aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString='
@@ -141,20 +146,31 @@ for key in organizedWeather:
         organizedWeather[key] = conditionDict[key]
     except Exception as e:
         organizedWeather[key] = "NONE"
+
 """ Set LED Colors """
 i=0
 for key in organizedWeather:
     if organizedWeather[key] == "VFR":
         pixels[i] = COLOR_VFR
+        continue
     elif organizedWeather[key] == "MVFR":
         pixels[i] = COLOR_MVFR
+        continue
     elif organizedWeather[key] == "IFR":
         pixels[i] = COLOR_IFR
+        continue
     elif organizedWeather[key] == "LIFR":
         pixels[i] = COLOR_LIFR
+        continue
     else:
         pixels[i] = COLOR_CLEAR
+        continue
     i+=1
+
+if departTime <= utcNow and utcNow <= arriveTime:
+    print("in flight")
+else:
+    print("not flying")
 
 for key in organizedWeather:
     print("At " + key + " the current weather is " + organizedWeather[key])
