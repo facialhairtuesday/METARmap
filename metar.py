@@ -155,7 +155,7 @@ for key in organizedWeather:
 """ Set LED Colors """
 i=0
 for key in organizedWeather:
-    print(organizedWeather[key])
+    print(i)
     if organizedWeather[key] == "VFR":
         pixels[i] = COLOR_VFR
         continue
@@ -172,9 +172,6 @@ for key in organizedWeather:
         pixels[i] = COLOR_CLEAR
         continue
     i+=1
-    print(i)
-
-print(pixels)
 
 #for key in organizedWeather:
 #    print("At " + key + " the current weather is " + organizedWeather[key])
