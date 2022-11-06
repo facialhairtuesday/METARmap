@@ -178,5 +178,7 @@ for key in organizedWeather:
         i+=1
 
 for key in organizedWeather:
-    print("At " + key + " the current weather is " + organizedWeather[key])
+    #print("At " + key + " the current weather is " + organizedWeather[key])
+    if organizedWeather[key] == "NONE":
+        print("At " + key + " the current weather is " + organizedWeather[key])
 pixels.show()
